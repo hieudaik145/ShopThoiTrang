@@ -1,4 +1,6 @@
 
+<%@page import="java.text.NumberFormat"%>
+<%@page import="java.util.Locale"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.teamwork.model.bean.Product"%>
 <%@page import="com.teamwork.model.dao.ProductDao"%>
@@ -81,6 +83,10 @@
 			
 		}
 	%>
+	<%
+		Locale localeVN = new Locale("vi","VN");
+		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+	%>
 
 
 	<!--header-->
@@ -129,7 +135,7 @@
 						<p class="in-para">There are many variations of passages of
 							Lorem Ipsum.</p>
 						<div class="price_single">
-							<span class="reducedfrom item_price"><%=product.getProductPrice() %></span> <a href="#">click
+							<span class="reducedfrom item_price"><%=currencyVN.format(product.getProductPrice())%> <br> <%=product.getProductPriceOld() %></span> <a href="#">click
 								for offer</a>
 							<div class="clearfix"></div>
 						</div>

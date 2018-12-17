@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Locale"%>
 <%@page import="com.teamwork.model.dao.Cart"%>
@@ -14,10 +15,10 @@
 	<%@ page import="com.teamwork.model.dao.ProductDao,com.teamwork.model.bean.Product" %>
 	<%
 		ProductDao productDao = new ProductDao();
-			String category_id = "";
-			if(request.getParameter("category")!=null)
+			long category_id = 0;
+			if(request.getParameter("category_id")!=null)
 			{
-				category_id=request.getParameter("category");
+				category_id = (long) Long.parseLong(request.getParameter("category_id"));
 			}	
 	%>
 	<%
@@ -32,6 +33,24 @@
 	<%
 		Locale localeVN = new Locale("vi","VN");
 		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
+	%>
+	
+	<%-- code moi --%>
+	<%
+		int pages = 0, firstResult = 0, maxResult = 0, total = 0;
+		if(request.getParameter("pages") != null) {
+			pages = (int) Integer.parseInt(request.getParameter("pages"));
+		}
+		total = productDao.countProductByCategory(category_id);
+		if(total<=5) {
+			firstResult = 1;
+			maxResult = total;
+		} else {
+			firstResult = (pages - 1) * 5;
+			maxResult = 5;
+		}
+		
+		ArrayList<Product> listProduct = productDao.getListProductByNav(category_id, firstResult, maxResult);
 	%>
 	
 
@@ -54,7 +73,8 @@
 				
 				
 				<%
-					for(Product p: productDao.getListProductByCategory(Long.parseLong(category_id))){ 
+					for(Product p: listProduct){  
+					
 				%>
 					<div class="col-md-4 item-grid1 simpleCart_shelfItem">
 						<div class=" mid-pop">
@@ -94,18 +114,45 @@
 
 									<div class="clearfix"></div>
 								</div>
-
+								
 							</div>
 						</div>
 					</div>
 				<%} %>
 				
-			
-
-					
-					
-					
 					<div class="clearfix"></div>
+					
+					<!-- code moi -->
+					<%
+						int pageht = Integer.parseInt(request.getParameter("pages"));
+						int pagepre ;
+						int pagenext = pageht + 1;
+						if(pageht == 1){
+							pagepre = 1;
+						}else
+						{
+							pagepre = pageht -1 ;
+						}
+						int maxpage = (total/5) + 1;
+						if( pageht == maxpage){
+							pagenext = pageht;
+						}else
+						{
+							pagenext = pageht + 1;
+						}
+						
+					%>
+					<ul style="list-style-type:none;">
+						<li style="display: inline-table;"><a style="text-decoration: none; display: block;" href="product.jsp?categpry_id=<%=category_id%>&pages=<%=pagepre%>"><i></i>pre</a></li>
+						<%
+							for (int i = 1; i <= (total/5)+1; i++) { %>
+						
+						<li style="display: inline-table;"><a style="text-decoration: none; display: block;" href="product.jsp?category_id=<%=category_id%>&pages=<%=i%>"><%=i%></a></li>
+						<%
+							}
+						%>
+						<li style="display: inline-table;" ><a style="text-decoration: none; display: block;" href="product.jsp?categpry_id=<%=category_id%>&pages=<%=pagenext%>"><i class="next"></i>next</a></li>
+					</ul>
 				</div>
 			</div>
 			<div class="col-md-3 product-bottom">

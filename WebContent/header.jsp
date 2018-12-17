@@ -117,10 +117,12 @@
 													<%
 														for (Category c : categoryDao.getListCategory()) {
 													%>
+													
+													<%-- code moi --%>
 													<ul
 														style="display: inline-table; text-decoration: none; list-style: none; border: none; list-style-type: none;">
 														<li><a
-															href="product.jsp?category=<%=c.getCategory_ID()%>"><%=c.getCategory_Name()%></a></li>
+															href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name()%></a></li>
 													</ul>
 													<%
 														}
@@ -148,7 +150,7 @@
 													<ul
 														style="display: inline-table; text-decoration: none; list-style: none; border: none; list-style-type: none; padding-bottom: 20px;">
 														<li><a
-															href="product.jsp?category=<%=c.getCategoryMen_ID()%>"><%=c.getCategoryMen_Name()%></a></li>
+															href="product.jsp?category_id=<%=c.getCategoryMen_ID()%>&pages=1"><%=c.getCategoryMen_Name()%></a></li>
 													</ul>
 													<%
 														}
