@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2018 at 04:57 AM
+-- Generation Time: Dec 24, 2018 at 07:49 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.11
 
@@ -131,7 +131,9 @@ CREATE TABLE `khachhang` (
 INSERT INTO `khachhang` (`id`, `username`, `password`, `email`, `phone`) VALUES
 (1, 'vo van hieu', '123', 'admin@gmail.com', 32679832),
 (2, 'hai', '123456', 'hai@gmail.com', 123456789),
-(3, 'hieu', '111111', 'hieude@gmail.com', 231);
+(3, 'hieu', '111111', 'hieude@gmail.com', 231),
+(4, 'hieu', 'Hieudaik145', 'admin123@gmail.com', 2321),
+(5, 'hieu cute', '123', 'hieucute@gmail.com', 1221);
 
 -- --------------------------------------------------------
 
@@ -189,6 +191,25 @@ INSERT INTO `product` (`product_id`, `category_id`, `product_name`, `product_ima
 (62, 5, 'Chân Váy Lime Orange -JO17810004-W', 'images/chanvay1.jpg', 'images/chanvay2.jpg', 'images/chanvay3.jpg', 399000, 450000, 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông', 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông', 'DỊCH VỤ & KHUYẾN MÃI LIÊN QUAN\r\nNhập mã TIKIYEUBAN10 giảm ngay 40k cho đơn hàng đầu tiên từ 400k thuộc các nhóm hàng Thời trang, Làm Đẹp & Sức Khỏe, Đồ Chơi, Mẹ và Bé và Hàng Tiêu Dùng - Thực Phẩm (trừ Tã, Bĩm, Sữa, Bia).Số lượng coupon có hạn, chương trình có thể kết thúc sớm khi hết lượt sử dụng coupon', 'After Work là dòng thương hiệu cao cấp - bắt kịp xu hướng thời trang Hàn Quốc và thế giới. Đặc biệt là các sản phẩm Váy  Đầm After Work được Lime Orange kết hợp với Seoul Design Lab để thiết kế , phù hợp với người Á Đông'),
 (63, 5, 'Áo Khoát Nam', 'images/pc7.jpg', NULL, NULL, 500, 0, NULL, NULL, '', NULL),
 (64, 5, 'Áo Khoát Nam', 'images/pc7.jpg', NULL, NULL, 500, 0, NULL, NULL, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlist`
+--
+
+CREATE TABLE `wishlist` (
+  `id_kh` int(11) NOT NULL,
+  `product_id` int(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id_kh`, `product_id`) VALUES
+(4, 40),
+(5, 34);
 
 --
 -- Indexes for dumped tables
@@ -250,7 +271,7 @@ ALTER TABLE `bill_detail`
 -- AUTO_INCREMENT for table `khachhang`
 --
 ALTER TABLE `khachhang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product`
