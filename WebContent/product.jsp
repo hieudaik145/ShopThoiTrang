@@ -74,14 +74,13 @@
 				
 				<%
 					for(Product p: listProduct){  
-					
 				%>
 					<div class="col-md-4 item-grid1 simpleCart_shelfItem">
 						<div class=" mid-pop">
 							<div class="pro-img">
 								<img src="<%=p.getProductImage() %>" height="590" width="426" class="img-responsive" alt="">
 								<div class="zoom-icon ">
-									<a class="picture" href="images/pc.jpg" rel="title"
+									<a class="picture" href="<%=p.getProductImage() %>" rel="title"
 										class="b-link-stripe b-animate-go  thickbox"><i
 										class="glyphicon glyphicon-search icon "></i></a> <a
 										href="single.jsp?productID=<%=p.getProductID()%>"><i

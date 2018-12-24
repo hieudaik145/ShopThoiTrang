@@ -24,7 +24,7 @@
 	<% if(request.getAttribute("err") != null){ %>
 			<b style="color: red; padding-left: 13px;"><%=request.getAttribute("err") %></b>
 	<%} %>
-			<form action="checklogin.jsp" method="post">
+			<form action="UserServlet?command=login" method="post">
 				<div class="col-md-6 login-do">
 					<div class="login-mail">
 						<input type="text" placeholder="Email" required="" name="email"> <i

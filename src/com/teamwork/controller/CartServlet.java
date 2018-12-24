@@ -32,6 +32,7 @@ public class CartServlet extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		String productID = request.getParameter("productID");
+		
 	
 		Cart cart = (Cart) session.getAttribute("cart");
 		try {

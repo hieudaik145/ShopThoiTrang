@@ -1,4 +1,5 @@
 
+<%@page import="com.teamwork.model.bean.User"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Locale"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -88,6 +89,12 @@
 		NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 	%>
 
+	<%
+		User user = null;
+		if (session.getAttribute("user") != null) {
+		user = (User) session.getAttribute("user");
+		}
+	%>
 
 	<!--header-->
 	<jsp:include page="header.jsp"></jsp:include>
@@ -101,8 +108,9 @@
 			</h2>
 		</div>
 	</div>
+	
 	<div class="single">
-
+		
 		<div class="container">
 			<div class="col-md-9">
 				<div class="col-md-5 grid">
@@ -142,10 +150,24 @@
 						<h4 class="quick">Quick Overview:</h4>
 						<p class="quick_desc"><%=product.getProductOverview() %></p>
 						<div class="wish-list">
+						
+							<%if(request.getAttribute("wlsuccess")!=null){%>
+								<span style="color: blue; text-align: center;"><%= request.getAttribute("wlsuccess") %> </span>
+						<%}if(request.getAttribute("wlerr")!=null) { %>
+								<span style="color: red; text-align: center;"><%= request.getAttribute("wlerr") %></span>
+						<%} %>
+						
 							<ul>
-								<li class="wish"><a href="#"><span
+								
+								<%if(user!=null){ %>
+								<li class="wish"><a href="WishListServlet?command=plus&id_kh=<%= user.getUserID()%>&product_id=<%=product.getProductID()%>"><span
 										class="glyphicon glyphicon-check" aria-hidden="true"></span>Add
 										to Wishlist</a></li>
+										<%} else{ %>
+								<li class="wish"><a href="login.jsp"><span
+										class="glyphicon glyphicon-check" aria-hidden="true"></span>Add
+										to Wishlist</a></li>	
+										<%} %>	
 								<li class="compare"><a href="#"><span
 										class="glyphicon glyphicon-resize-horizontal"
 										aria-hidden="true"></span>Add to Compare</a></li>
@@ -154,8 +176,8 @@
 						<div class="quantity">
 							<div class="quantity-select">
 								<div class="entry value-minus">&nbsp;</div>
-								<div class="entry value">
-									<span>1</span>
+								<div class="entry value" id="soluong">
+									<span >1</span>
 								</div>
 								<div class="entry value-plus active">&nbsp;</div>
 							</div>
@@ -182,7 +204,7 @@
 									});
 						</script>
 						<!--quantity-->
-
+						
 						<a href="CartServlet?command=plus&productID=<%=product.getProductID() %>" class="add-to item_add hvr-skew-backward">Add to
 							cart</a>
 						<div class="clearfix"></div>

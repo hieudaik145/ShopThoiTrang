@@ -53,7 +53,7 @@
 							if (user != null) {
 						%>
 						<li><a href="QuanLyTaiKhoan.jsp"><%=user.getUsername()%></a></li>
-						<li><a href="logout.jsp">Logout</a></li>
+						<li><a href="UserServlet?command=logout">Logout</a></li>
 						<li><a href="checkout.jsp">Checkout</a></li>
 						<%
 							} else {
@@ -172,9 +172,15 @@
 				</div>
 				<div class="col-sm-2 search-right">
 					<ul class="heart">
-						<li><a href="wishlist.html"> <span
+					<%if(user!=null) {%>
+						<li><a href="WishListServlet?command=view&id_kh=<%=user.getUserID()%>"> <span
 								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						</a></li>
+						<%}else{ %>
+						<li><a href="login.jsp"> <span
+								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+						</a></li>
+						<%} %>
 						<li><a class="play-icon popup-with-zoom-anim"
 							href="#small-dialog"><i class="glyphicon glyphicon-search">
 							</i></a></li>

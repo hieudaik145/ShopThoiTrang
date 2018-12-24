@@ -47,9 +47,9 @@
 	<div class="container">
 		<div class="login">
 		<%if(request.getAttribute("err-register")!=null){ %>
-			<b style="color: red; padding-left: 13px;">Địa chỉ email đã tồn tại , không thể thêm</b>
+			<b style="color: red; padding-left: 13px;"><%=request.getAttribute("err-register") %></b>
 		<%} %>
-			<form action="adduser.jsp" method="post">
+			<form action="UserServlet?command=register" method="post">
 				<div class="col-md-6 login-do">
 					<div class="login-mail">
 						<input type="text" placeholder="Name" required="" name="username">
