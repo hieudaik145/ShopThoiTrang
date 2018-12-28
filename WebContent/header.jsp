@@ -11,6 +11,70 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title>header</title>
+<style >
+.box{
+margin-top: 20px;
+}
+.container-4{
+  overflow: hidden;
+  width: 400px;
+  vertical-align: middle;
+  white-space: nowrap;
+  
+}
+.container-4 input#search{
+  width: 400px;
+  height: 40px;
+  background: #2b303b;
+  border: none;
+  font-size: 10pt;
+  float: left;
+  color: #fff;
+  padding-left: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.container-4 input#search::-webkit-input-placeholder {
+   color: #65737e;
+}
+ 
+.container-4 input#search:-moz-placeholder { /* Firefox 18- */
+   color: #65737e;  
+}
+ 
+.container-4 input#search::-moz-placeholder {  /* Firefox 19+ */
+   color: #65737e;  
+}
+ 
+.container-4 input#search:-ms-input-placeholder {  
+   color: #65737e;  
+}
+.container-4 button.icon{
+ 
+  border: none;
+  background: #232833;
+  height: 40px;
+  width: 70px;
+  color: #4f5b66;
+  opacity: 0;
+  font-size: 10pt;
+  -webkit-transition: all .55s ease;
+  -moz-transition: all .55s ease;
+  -ms-transition: all .55s ease;
+  -o-transition: all .55s ease;
+  transition: all .55s ease;
+}
+.container-4:hover button.icon, .container-4:active button.icon, .container-4:focus button.icon{
+    outline: none;
+    opacity: 1;
+    margin-left: -65px;
+  }
+ 
+  .container-4:hover button.icon:hover{
+    background: white;
+  }
+  </style>
 </head>
 <body>
 	
@@ -64,6 +128,8 @@
 						<%
 							}
 						%>
+						
+
 					</ul>
 				</div>
 
@@ -162,7 +228,7 @@
 									</div></li>
 								<li><a class="color3" href="product.html">Sale</a></li>
 								<li><a class="color4" href="404.html">About</a></li>
-								<li><a class="color5" href="typo.html">Short Codes</a></li>
+						
 								<li><a class="color6" href="contact.html">Contact</a></li>
 							</ul>
 						</div>
@@ -181,9 +247,7 @@
 								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						</a></li>
 						<%} %>
-						<li><a class="play-icon popup-with-zoom-anim"
-							href="#small-dialog"><i class="glyphicon glyphicon-search">
-							</i></a></li>
+						
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.jsp">
@@ -200,45 +264,23 @@
 
 					</div>
 					<div class="clearfix"></div>
-
-					<!----->
-
-					<!---pop-up-box---->
-					<link href="css/popuo-box.css" rel="stylesheet" type="text/css"
-						media="all" />
-					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-					<!---//pop-up-box---->
-					<div id="small-dialog" class="mfp-hide">
-						<div class="search-top">
-							<div class="login-search">
-								<input type="submit" value=""> <input type="text"
-									value="Search.." onfocus="this.value = '';"
-									onblur="if (this.value == '') {this.value = 'Search..';}">
-							</div>
-							<p>Shopin</p>
-						</div>
-					</div>
-					<script>
-						$(document).ready(function() {
-							$('.popup-with-zoom-anim').magnificPopup({
-								type : 'inline',
-								fixedContentPos : false,
-								fixedBgPos : true,
-								overflowY : 'auto',
-								closeBtnInside : true,
-								preloader : false,
-								midClick : true,
-								removalDelay : 300,
-								mainClass : 'my-mfp-zoom-in'
-							});
-
-						});
-					</script>
-					
-					<!----->
+				
+		
 				</div>
+				
 				<div class="clearfix"></div>
+						<div class="box" align="left" style="margin-left: 250;">
+								<div class="container-4">
+									<input type="search" id="search" placeholder="Search..." />
+									<button class="icon">
+										<i class="fa fa-search">Tìm Kiếm</i>
+									</button>
+								</div>
+							</div>	
+				
 			</div>
+					
+						
 		</div>
 	</div>
 
