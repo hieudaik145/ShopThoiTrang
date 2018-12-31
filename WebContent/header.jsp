@@ -1,7 +1,7 @@
 
 <%@page import="com.teamwork.model.dao.Cart"%>
 <%@page
-	import="com.teamwork.model.dao.CategoryDao, com.teamwork.model.dao.CategoryMenDao"%>
+	import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
@@ -79,11 +79,11 @@ margin-top: 20px;
 <body>
 	
 	<%@page
-		import="com.teamwork.model.bean.Category,com.teamwork.model.bean.CategoryMen"%>
+		import="com.teamwork.model.bean.Category"%>
 	<%
 		CategoryDao categoryDao = new CategoryDao();
-		CategoryMenDao categoryMenDao = new CategoryMenDao();
 	%>
+	
 	<%-- --%>
 	<%
 		User user = null;
@@ -181,7 +181,7 @@ margin-top: 20px;
 														Trang Nữ</h4>
 													<%--lay danh sach product theo ten danh muc --%>
 													<%
-														for (Category c : categoryDao.getListCategory()) {
+														for (Category c : categoryDao.getListCategory("nu")) {
 													%>
 													
 													<%-- code moi --%>
@@ -211,12 +211,12 @@ margin-top: 20px;
 													<h4 style="padding-bottom: 30px; text-align: center;">Thời
 														Trang Nam</h4>
 													<%
-														for (CategoryMen c : categoryMenDao.getListCategoryMan()) {
+														for (Category c : categoryDao.getListCategory("nam")) {
 													%>
 													<ul
 														style="display: inline-table; text-decoration: none; list-style: none; border: none; list-style-type: none; padding-bottom: 20px;">
 														<li><a
-															href="product.jsp?category_id=<%=c.getCategoryMen_ID()%>&pages=1"><%=c.getCategoryMen_Name()%></a></li>
+															href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name()%></a></li>
 													</ul>
 													<%
 														}
@@ -238,15 +238,15 @@ margin-top: 20px;
 				</div>
 				<div class="col-sm-2 search-right">
 					<ul class="heart">
-					<%if(user!=null) {%>
-						<li><a href="WishListServlet?command=view&id_kh=<%=user.getUserID()%>"> <span
+					
+						<li><a href="WishListServlet?command=view"> <span
 								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						</a></li>
-						<%}else{ %>
-						<li><a href="login.jsp"> <span
-								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-						</a></li>
-						<%} %>
+					
+						
+					
+					
+					
 						
 					</ul>
 					<div class="cart box_1">

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +47,25 @@ public class UserServlet extends HttpServlet {
 				try {
 					logindao.getDataKH(user);
 					session.setAttribute("user", user);
-					response.sendRedirect("index.jsp");
+					ServletContext sc = getServletContext();
+				
+					if(sc.getAttribute("urlsaulogin")!= null)
+					{
+						
+						response.sendRedirect("WishListServlet?command=view&id_kh="+user.getUserID());
+						sc.removeAttribute("urlsaulogin");
+					}
+					else if(sc.getAttribute("urlcheckoutfn")!= null)
+					{
+						response.sendRedirect("checkout-finish.jsp");
+						sc.removeAttribute("urlcheckoutfn");
+					}else
+					{
+						response.sendRedirect("index.jsp");
+					}
+						
+					
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

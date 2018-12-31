@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.api.Session;
 import com.teamwork.model.bean.Bill;
 import com.teamwork.model.bean.BillDetail;
 import com.teamwork.model.bean.Item;
@@ -30,6 +33,23 @@ public class CheckOutServlet extends HttpServlet {
 	private final BillDetailDao billDetailDao = new BillDetailDao();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String command = request.getParameter("command");
+		if(command.equals("ktralogin"))
+		{
+			HttpSession session = request.getSession();
+			User user = (User) session.getAttribute("user");
+			if(user== null)
+			{
+				ServletContext sc = getServletContext();
+				sc.setAttribute("urlcheckoutfn", "checkout-finish.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+				rd.forward(request, response);
+			}
+			else
+			{
+				response.sendRedirect("checkout-finish.jsp");
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -22,13 +22,7 @@
 		</div>
 	</div>
 
-	<%
-		User u  = (User)session.getAttribute("user");
-		if(u==null)
-		{
-			response.sendRedirect("login.jsp");
-		}
-	%>
+
 	<%
 		Cart cart = (Cart) session.getAttribute("cart");
 		if(cart==null){
@@ -49,7 +43,7 @@
 					</div>
 					<div class="login-mail">
 						<span>Payment: </span> <select name="payment" >
-							<option value="Dỉrect Payment">Thanh Toán Khi
+							<option value="Direct Payment">Thanh Toán Khi
 								Nhận Hàng</option>
 							<option value="Banking Plus">Banking Plus</option>
 						</select>

@@ -5,13 +5,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.teamwork.model.bean.Product;
+import com.teamwork.model.bean.User;
 import com.teamwork.model.dao.ProductDao;
 import com.teamwork.model.dao.WishListDao;
 
@@ -29,6 +32,7 @@ public class WishListServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		ProductDao productDao = new ProductDao();
 		WishListDao wishlistDao = new WishListDao();
 		String id_kh = request.getParameter("id_kh");
@@ -50,22 +54,31 @@ public class WishListServlet extends HttpServlet {
 			break;
 
 		case "view":
-			ArrayList<Integer> listidproduct = wishlistDao.getListProductIDbyID_KH(Integer.parseInt(id_kh));
-			ArrayList<Product> list = new ArrayList<Product>();
-
-			for (int i : listidproduct) {
-				int j = i;
-				try {
-					list.add(productDao.getProduct(j));
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				User user =(User) session.getAttribute("user");
+				if(user != null) {
+					
+			
+					ArrayList<Integer> listidproduct = wishlistDao.getListProductIDbyID_KH(user.getUserID());
+					ArrayList<Product> list = new ArrayList<Product>();
+		
+					for (int i : listidproduct) {
+						int j = i;
+						try {
+							list.add(productDao.getProduct(j));
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					request.setAttribute("listProductWishlist", list);
+					RequestDispatcher rd = request.getRequestDispatcher("wishlist.jsp");
+					rd.forward(request, response);
+				}else
+				{
+					ServletContext sc = getServletContext();
+					sc.setAttribute("urlsaulogin", "wishlist.jsp");
+					response.sendRedirect("login.jsp");
 				}
-
-			}
-			request.setAttribute("listProductWishlist", list);
-			RequestDispatcher rd = request.getRequestDispatcher("wishlist.jsp");
-			rd.forward(request, response);
 			break;
 		case "remove":
 			int status = wishlistDao.removeWishList(Integer.parseInt(id_kh), Integer.parseInt(product_id));

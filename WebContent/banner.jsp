@@ -13,9 +13,7 @@
 				<h1 class="rw-sentence">
 					<span>Young Fashion</span>
 					<div class="rw-words rw-words-1">
-						
-						
-					
+			
 				</h1>
 </section>
 			</div>

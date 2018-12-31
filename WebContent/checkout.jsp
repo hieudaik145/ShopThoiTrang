@@ -114,7 +114,7 @@
 			<div class="produced">
 			<%if(cart.total()!=0) { %>
 				<b>Tổng tiền: <%=cart.format(cart.total()) %></b>
-				<a href="checkout-finish.jsp" class="hvr-skew-backward">Thanh Toán</a>
+				<a href="CheckOutServlet?command=ktralogin" class="hvr-skew-backward">Thanh Toán</a>
 			<%} else{ %>
 				<a href="index.jsp" class="hvr-skew-backward">Not Product </a>
 				<%} %>

@@ -1,7 +1,7 @@
 
-<%@page import="com.teamwork.model.bean.CategoryMen"%>
+
 <%@page import="com.teamwork.model.bean.Category"%>
-<%@page import="com.teamwork.model.dao.CategoryMenDao"%>
+
 <%@page import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
 <%@page import="java.text.NumberFormat"%>
@@ -295,7 +295,6 @@
 
 			<%
 		CategoryDao categoryDao = new CategoryDao();
-		CategoryMenDao categoryMenDao = new CategoryMenDao();
 		%>
 			<div class="col-md-3 product-bottom">
 				<!--categories-->
@@ -305,7 +304,7 @@
 						<li class="item1"><a href="#">Women </a>
 							<ul class="cute">
 								<%
-									for (Category c : categoryDao.getListCategory()) {
+									for (Category c : categoryDao.getListCategory("nu")) {
 								%>
 								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name() %>
 										 </a></li>
@@ -315,9 +314,9 @@
 						<li class="item2"><a href="#">Men </a>
 							<ul class="cute">
 							<%
-								for (CategoryMen c : categoryMenDao.getListCategoryMan()) {
+								for (Category c : categoryDao.getListCategory("nam")) {
 							%>
-								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategoryMen_ID()%>&pages=1"><%=c.getCategoryMen_Name() %>
+								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name() %>
 										 </a></li>
 							<%} %>
 							</ul></li>

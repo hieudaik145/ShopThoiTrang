@@ -1,6 +1,6 @@
-<%@page import="com.teamwork.model.bean.CategoryMen"%>
+
 <%@page import="com.teamwork.model.bean.Category"%>
-<%@page import="com.teamwork.model.dao.CategoryMenDao"%>
+
 <%@page import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.NumberFormat"%>
@@ -96,7 +96,7 @@
 									<div class="women-top">
 									
 								
-										<span>Women</span>
+										
 								
 										<h6>
 											<a href="single.jsp?productID=<%=p.getProductID()%>"><%=p.getProductName() %></a>
@@ -107,7 +107,9 @@
 									</div>
 									<div class="clearfix"></div>
 								</div>
+								<span><%="-"+ p.getSaleOf()+"%" %></span>
 								<div class="mid-2">
+									
 									<p>
 										<label><%=currencyVN.format(p.getProductPriceOld()) %></label><em class="item_price"><%=currencyVN.format(p.getProductPrice()) %></em>
 									</p>
@@ -160,7 +162,7 @@
 			</div>
 		<%
 		CategoryDao categoryDao = new CategoryDao();
-		CategoryMenDao categoryMenDao = new CategoryMenDao();
+
 		%>
 			<div class="col-md-3 product-bottom">
 				<!--categories-->
@@ -170,7 +172,7 @@
 						<li class="item1"><a href="#">Women </a>
 							<ul class="cute">
 								<%
-									for (Category c : categoryDao.getListCategory()) {
+									for (Category c : categoryDao.getListCategory("nu")) {
 								%>
 								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name() %>
 										 </a></li>
@@ -180,9 +182,9 @@
 						<li class="item2"><a href="#">Men </a>
 							<ul class="cute">
 							<%
-								for (CategoryMen c : categoryMenDao.getListCategoryMan()) {
+								for (Category c : categoryDao.getListCategory("nam")) {
 							%>
-								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategoryMen_ID()%>&pages=1"><%=c.getCategoryMen_Name() %>
+								<li class="subitem1"><a href="product.jsp?category_id=<%=c.getCategory_ID()%>&pages=1"><%=c.getCategory_Name() %>
 										 </a></li>
 							<%} %>
 							</ul></li>
