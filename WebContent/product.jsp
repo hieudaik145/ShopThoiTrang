@@ -1,4 +1,5 @@
 
+<%@page import="com.teamwork.model.dao.SortDao"%>
 <%@page import="com.teamwork.model.bean.Category"%>
 
 <%@page import="com.teamwork.model.dao.CategoryDao"%>
@@ -46,15 +47,41 @@
 			pages = (int) Integer.parseInt(request.getParameter("pages"));
 		}
 		total = productDao.countProductByCategory(category_id);
-		if(total<=5) {
-			firstResult = 1;
+		if(total<=4) {
+			firstResult = 0;
 			maxResult = total;
 		} else {
-			firstResult = (pages - 1) * 5;
-			maxResult = 5;
+			firstResult = (pages - 1) * 4;
+			maxResult = 4;
 		}
-		
+		SortDao sortDao = new SortDao();
 		ArrayList<Product> listProduct = productDao.getListProductByNav(category_id, firstResult, maxResult);
+		System.out.println(category_id);
+		
+		if(request.getAttribute("sort")!= null)
+		{
+			String sort = (String)request.getAttribute("sort");
+			if(sort.equals("0"))
+			{
+				listProduct = productDao.getListProductByNav(category_id, firstResult, maxResult);
+			}
+			if(sort.equals("1"))
+			{
+				sortDao.sortMinMaxPrice(listProduct);
+			}
+			if(sort.equals("2"))
+			{
+				sortDao.sortMaxMinPrice(listProduct);
+			}
+			if(sort.equals("3"))
+			{
+				sortDao.sortSaleMinMax(listProduct);
+			}
+			if(sort.equals("4"))
+			{
+				sortDao.sortSaleMaxMin(listProduct);
+			}
+		}
 	%>
 	
 
@@ -69,20 +96,35 @@
 			</h2>
 		</div>
 	</div>
-
+	
+					<form action="SortServlet?category_id=<%=category_id %>&page=<%=request.getParameter("pages") %>" method="post" style="margin-left: 200px;">
+					<div class="form">
+						<div class="form_row">
+									<label><input type="submit" class="form_submit" value="Sắp Xếp"  style="height: 35px; margin-top: -4.7px;"></label>
+									 <select class="form_select" style="width: 200px; height: 35px;"
+										name="sort">
+										<option>Mặc Định</option>
+										<option>Price Tăng Dần</option>
+										<option>Price Giảm Dần</option>
+										<option>Sale Tăng Dần</option>
+										<option>Sale Giảm Dần</option>
+									</select>
+								
+						</div>
+					</div>
+					</form>
+				
 	<div class="product">
 		<div class="container">
 			<div class="col-md-9">
 				<div class="mid-popular">
-				
-				
 				<%
 					for(Product p: listProduct){  
 				%>
 					<div class="col-md-4 item-grid1 simpleCart_shelfItem">
 						<div class=" mid-pop">
-							<div class="pro-img">
-								<img src="<%=p.getProductImage() %>" height="590" width="426" class="img-responsive" alt="">
+							<div class="pro-img" style="width: 426;height: 500">
+								<img src="<%=p.getProductImage() %>" height="500" width="426" class="img-responsive" alt="">
 								<div class="zoom-icon ">
 									<a class="picture" href="<%=p.getProductImage() %>" rel="title"
 										class="b-link-stripe b-animate-go  thickbox"><i
@@ -94,16 +136,12 @@
 							<div class="mid-1">
 								<div class="women">
 									<div class="women-top">
-									
-								
-										
-								
 										<h6>
 											<a href="single.jsp?productID=<%=p.getProductID()%>"><%=p.getProductName() %></a>
 										</h6>
 									</div>
 									<div class="img item_add">
-										<a href="CartServlet?command=plus&productID=<%=p.getProductID()%>"><img src="images/ca.png" alt=""></a>
+										<a href="CartServlet?command=plus&productID=<%=p.getProductID()%>&category_id=<%=category_id%>&pages=<%=request.getParameter("pages")%>"><img src="images/ca.png" alt=""></a>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -138,7 +176,7 @@
 						{
 							pagepre = pageht -1 ;
 						}
-						int maxpage = (total/5) + 1;
+						int maxpage = (total/4) + 1;
 						if( pageht == maxpage){
 							pagenext = pageht;
 						}else
@@ -148,15 +186,15 @@
 						
 					%>
 					<ul style="list-style-type:none;">
-						<li style="display: inline-table;"><a style="text-decoration: none; display: block;" href="product.jsp?categpry_id=<%=category_id%>&pages=<%=pagepre%>"><i></i>pre</a></li>
+						<li style="display: inline-table;"><a style="text-decoration: none; display: block;" href="product.jsp?category_id=<%=category_id%>&pages=<%=pagepre%>"><i></i>pre</a></li>
 						<%
-							for (int i = 1; i <= (total/5)+1; i++) { %>
+							for (int i = 1; i <= (total/4)+1; i++) { %>
 						
 						<li style="display: inline-table;"><a style="text-decoration: none; display: block;" href="product.jsp?category_id=<%=category_id%>&pages=<%=i%>"><%=i%></a></li>
 						<%
 							}
 						%>
-						<li style="display: inline-table;" ><a style="text-decoration: none; display: block;" href="product.jsp?categpry_id=<%=category_id%>&pages=<%=pagenext%>"><i class="next"></i>next</a></li>
+						<li style="display: inline-table;" ><a style="text-decoration: none; display: block;" href="product.jsp?category_id=<%=category_id%>&pages=<%=pagenext%>"><i class="next"></i>next</a></li>
 					</ul>
 				</div>
 			</div>

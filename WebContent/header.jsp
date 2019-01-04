@@ -3,14 +3,14 @@
 <%@page
 	import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <title>header</title>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <style >
 .box{
 margin-top: 20px;
@@ -135,11 +135,11 @@ margin-top: 20px;
 
 				<div class="col-sm-5 header-social">
 					<ul>
-						<li><a href="#"><i></i></a></li>
-						<li><a href="#"><i class="ic1"></i></a></li>
-						<li><a href="#"><i class="ic2"></i></a></li>
-						<li><a href="#"><i class="ic3"></i></a></li>
-						<li><a href="#"><i class="ic4"></i></a></li>
+						<%if(session.getAttribute("nameadmin")!=null){ %>
+						<li><a style="color: red;" href="${pageContext.request.contextPath}/admin/index.jsp">Trang Quản Trị</a></li>
+						<%}else{ %>
+						<li><a style="color: red;" href="${pageContext.request.contextPath}/admin/login.jsp">Trang Quảng Trị</a></li>
+						<%} %>
 					</ul>
 
 				</div>
@@ -242,12 +242,6 @@ margin-top: 20px;
 						<li><a href="WishListServlet?command=view"> <span
 								class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 						</a></li>
-					
-						
-					
-					
-					
-						
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.jsp">
@@ -269,14 +263,16 @@ margin-top: 20px;
 				</div>
 				
 				<div class="clearfix"></div>
+				<form action="SearchServlet" method="get">
 						<div class="box" align="left" style="margin-left: 250;">
 								<div class="container-4">
-									<input type="search" id="search" placeholder="Search..." />
-									<button class="icon">
+									<input type="search" id="search" name="search" placeholder="Search..." />
+									<button class="icon"  type="submit">
 										<i class="fa fa-search">Tìm Kiếm</i>
 									</button>
 								</div>
 							</div>	
+				</form>
 				
 			</div>
 					

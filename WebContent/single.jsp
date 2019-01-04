@@ -1,7 +1,5 @@
-
-
+<%@page import="sun.java2d.Spans"%>
 <%@page import="com.teamwork.model.bean.Category"%>
-
 <%@page import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
 <%@page import="java.text.NumberFormat"%>
@@ -144,11 +142,9 @@
 				<div class="col-md-7 single-top-in">
 					<div class="span_2_of_a1 simpleCart_shelfItem">
 						<h3><%=product.getProductName() %></h3>
-						<p class="in-para">There are many variations of passages of
-							Lorem Ipsum.</p>
+						
 						<div class="price_single">
-							<span class="reducedfrom item_price"><%=currencyVN.format(product.getProductPrice())%> <br> <%=product.getProductPriceOld() %></span> <a href="#">click
-								for offer</a>
+							<span class="reducedfrom item_price"><%=currencyVN.format(product.getProductPrice())%><a></a>
 							<div class="clearfix"></div>
 						</div>
 						<h4 class="quick">Quick Overview:</h4>
@@ -163,7 +159,8 @@
 						
 							<ul>
 								
-								<%if(user!=null){ %>
+								<%if(user!=null){
+%>
 								<li class="wish"><a href="WishListServlet?command=plus&id_kh=<%= user.getUserID()%>&product_id=<%=product.getProductID()%>"><span
 										class="glyphicon glyphicon-check" aria-hidden="true"></span>Add
 										to Wishlist</a></li>
@@ -172,45 +169,18 @@
 										class="glyphicon glyphicon-check" aria-hidden="true"></span>Add
 										to Wishlist</a></li>	
 										<%} %>	
-								<li class="compare"><a href="#"><span
-										class="glyphicon glyphicon-resize-horizontal"
-										aria-hidden="true"></span>Add to Compare</a></li>
+								
 							</ul>
 						</div>
+						<form action="CartServlet?command=plusquantity&productID=<%=product.getProductID()%>" method="post">
 						<div class="quantity">
-							<div class="quantity-select">
-								<div class="entry value-minus">&nbsp;</div>
-								<div class="entry value" id="soluong">
-									<span >1</span>
+								<div class="entry value">
+									<input type="number" name="quantity" value="1" min="1" max="10"  >
 								</div>
-								<div class="entry value-plus active">&nbsp;</div>
-							</div>
 						</div>
-						<!--quantity-->
-						<script>
-							$('.value-plus').on(
-									'click',
-									function() {
-										var divUpd = $(this).parent().find(
-												'.value'), newVal = parseInt(
-												divUpd.text(), 10) + 1;
-										divUpd.text(newVal);
-									});
-
-							$('.value-minus').on(
-									'click',
-									function() {
-										var divUpd = $(this).parent().find(
-												'.value'), newVal = parseInt(
-												divUpd.text(), 10) - 1;
-										if (newVal >= 1)
-											divUpd.text(newVal);
-									});
-						</script>
-						<!--quantity-->
-						
-						<a href="CartServlet?command=plus&productID=<%=product.getProductID() %>" class="add-to item_add hvr-skew-backward">Add to
-							cart</a>
+				
+							<input type="submit" class="add-to item_add hvr-skew-backward" value="Add to cart">
+						</form>
 						<div class="clearfix"></div>
 					</div>
 
@@ -231,20 +201,7 @@
 						<div class="tab-pane active text-style" id="tab1">
 							<div class="facts">
 								<p><%= product.getProductDescription() %></p>
-								<ul>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Research</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Design and Development</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Porting and Optimization</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>System integration</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Verification, Validation and Testing</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Maintenance and Support</li>
-								</ul>
+								
 							</div>
 
 						</div>
@@ -252,15 +209,7 @@
 
 							<div class="facts">
 								<p><%= product.getProductAdditonal() %></p>
-								<ul>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Multimedia Systems</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Digital media adapters</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Set top boxes for HDTV and IPTV
-										Player</li>
-								</ul>
+							
 							</div>
 
 						</div>
@@ -268,20 +217,7 @@
 
 							<div class="facts">
 								<p><%= product.getProductReview() %></p>
-								<ul>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Research</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Design and Development</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Porting and Optimization</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>System integration</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Verification, Validation and Testing</li>
-									<li><span class="glyphicon glyphicon-ok"
-										aria-hidden="true"></span>Maintenance and Support</li>
-								</ul>
+							
 							</div>
 
 						</div>

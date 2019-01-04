@@ -42,10 +42,7 @@
 
 
 							<div class="form">
-								<div class="form_row">
-									<label>Category id:</label> <input type="text"
-										class="form_input" name="category_id" />
-								</div>
+								
 								<div class="form_row">
 									<label>Category Name:</label> <input type="text"
 										class="form_input" name="tenDanhMuc" />
@@ -58,7 +55,7 @@
 									</select>
 								</div>
 								<div class="form_row">
-									<input type="hidden" name="command" value="insert">
+									
 									<input type="submit" class="form_submit" value="Insert">
 								</div>
 								<div class="clear"></div>

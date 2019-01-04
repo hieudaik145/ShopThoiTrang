@@ -32,8 +32,8 @@ public class CartServlet extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		String productID = request.getParameter("productID");
-		
-	
+		String category_id = request.getParameter("category_id");
+		String pages = request.getParameter("pages");
 		Cart cart = (Cart) session.getAttribute("cart");
 		try {
 			
@@ -50,24 +50,41 @@ public class CartServlet extends HttpServlet {
 				{
 					cart.insertToCart(idProduct, new Item(product, 1));
 				}
-				response1.sendRedirect("index.jsp");
+				if(category_id!=null && pages!= null)
+				{
+				response1.sendRedirect("product.jsp?category_id="+category_id+"&pages="+pages);
+				}
+				else
+				{
+					response1.sendRedirect("index.jsp");
+				}
+				
+				break;
+			case "plusquantity":
+				if(request.getParameter("quantity")!=null)
+				{
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					Item item = new Item();
+					item.setProduct(product);
+					item.setQuantity(quantity);
+					cart.insertToCart(idProduct, item);
+					response1.sendRedirect("index.jsp");
+				}
+				
 				break;
 			case "remove":
 				cart.removeToCart(idProduct);
-				
 				response1.sendRedirect("checkout.jsp");
 				break;
 			case "removeall":
 				cart.removeALLToCart();
 				response1.sendRedirect("index.jsp");
 				break;
-		
-			
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			response1.sendRedirect("index.jsp");
+			
 			
 		}
 		session.setAttribute("cart", cart);

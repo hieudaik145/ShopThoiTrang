@@ -54,6 +54,24 @@ public class Product {
 	}
 	
 
+	public Product( long categoryID, String productName, String productImage, String productImage1,
+			String productImage2, double productPrice,double productPriceOld, String productDescription, String productOverview,
+			String productAdditonal, String productReview) {
+		super();
+		this.categoryID = categoryID;
+		this.productName = productName;
+		this.productImage = productImage;
+		this.productImage1 = productImage1;
+		this.productImage2 = productImage2;
+		this.productPrice = productPrice;
+		this.productPriceOld = productPriceOld;
+		this.productDescription = productDescription;
+		this.productOverview = productOverview;
+		this.productAdditonal = productAdditonal;
+		this.productReview = productReview;
+
+	}
+	
 
 	public int getSaleOf() {
 		int saleof = (int) (((productPriceOld - productPrice)/productPriceOld) * 100);

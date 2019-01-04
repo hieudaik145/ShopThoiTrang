@@ -15,12 +15,12 @@
 	<%
 		ProductDao productDao = new ProductDao();
 		ArrayList<Product> listProduct = productDao.getALLProduct();
+		
 	%>
 	
 	<div id="panelwrap">
 
 		<jsp:include page="header.jsp"></jsp:include>
-
 		<div class="center_content">
 
 			<div id="right_wrap">

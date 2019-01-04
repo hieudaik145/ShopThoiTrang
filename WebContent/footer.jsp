@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>footer</title>
 
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style-admin.css" />
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css"
 	media="all" />
 <!-- Custom Theme files -->

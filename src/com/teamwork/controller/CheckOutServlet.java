@@ -22,6 +22,7 @@ import com.teamwork.model.bean.User;
 import com.teamwork.model.dao.BillDao;
 import com.teamwork.model.dao.BillDetailDao;
 import com.teamwork.model.dao.Cart;
+import com.teamwork.model.tool.SendMail;
 
 /**
  * Servlet implementation class CheckOutServlet
@@ -33,6 +34,9 @@ public class CheckOutServlet extends HttpServlet {
 	private final BillDetailDao billDetailDao = new BillDetailDao();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		  request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.setContentType("text/html; charset=UTF-8");
 		String command = request.getParameter("command");
 		if(command.equals("ktralogin"))
 		{
@@ -47,12 +51,16 @@ public class CheckOutServlet extends HttpServlet {
 			}
 			else
 			{
-				response.sendRedirect("checkout-finish.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("checkout-finish.jsp");
+				rd.forward(request, response);
 			}
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.setContentType("text/html; charset=UTF-8");
 	
 			String payment = request.getParameter("payment");
 			String adress = request.getParameter("adress");
@@ -63,7 +71,7 @@ public class CheckOutServlet extends HttpServlet {
 			{
 				long ID = new Date().getTime();
 				Bill bill = new Bill();
-				bill.setBillID(ID);
+				bill.setBillID((int)ID);
 				bill.setAdress(adress);
 				bill.setPayment(payment);
 				bill.setUserID(user.getUserID());
@@ -72,16 +80,21 @@ public class CheckOutServlet extends HttpServlet {
 				billDao.insertBill(bill);
 				for(Map.Entry<Long, Item> list: cart.getCartItem().entrySet())
 				{
-					billDetailDao.insertBillDetail(new BillDetail(0, ID, list.getValue().getProduct().getProductID(),
+					billDetailDao.insertBillDetail(new BillDetail(0, (int)ID, list.getValue().getProduct().getProductID(),
 							list.getValue().getProduct().getProductPrice(), list.getValue().getQuantity()));
 				}
+				
+				SendMail sm = new SendMail();
+				sm.sendMail(user.getEmail(), "Fashion Shop", "Hello "+user.getUsername()+"\n Tổng Tiền Cho Đơn Hàng Của Bạn Là: "+cart.total());
 				cart = new Cart();
 				session.setAttribute("cart", cart);
 			}catch(Exception e)
 			{
 				e.printStackTrace();
 			}
-			response.sendRedirect("index.jsp");
+			request.setAttribute("checkoutsucess", "Thanh Toán Thành Công Vui Lòng Kiểm Tra Mail");
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+			requestDispatcher.forward(request, response);
 	}
 
 }

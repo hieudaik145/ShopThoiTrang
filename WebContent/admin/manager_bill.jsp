@@ -1,13 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@page import="com.teamwork.model.bean.BillDetail"%>
+<%@page import="com.teamwork.model.dao.BillDetailDao"%>
+<%@page import="com.teamwork.model.dao.UserDao"%>
+<%@page import="com.teamwork.model.bean.Bill"%>
+<%@page import="com.teamwork.model.bean.User"%>
+
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.teamwork.model.dao.BillDao"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Invoice Management</title>
 </head>
 <body>
+	<%
+		BillDao billdao = new BillDao();
+		ArrayList<Bill> listBill = billdao.getListBill();
 	
+		UserDao userDao = new UserDao();
+		
+	%>
+
 	<div id="panelwrap">
 
 		<jsp:include page="header.jsp"></jsp:include>
@@ -23,14 +37,12 @@
 					<thead>
 						<tr>
 							<th></th>
-							<th>Product</th>
-							<th>Details</th>
-							<th>Price</th>
-							<th>Date</th>
-							<th>Category</th>
 							<th>User</th>
-							<th>Edit</th>
-							<th>Delete</th>
+							<th>Total</th>
+							<th>Payment</th>
+							<th>Address</th>
+							<th>Date</th>
+							<th>Option</th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -39,85 +51,25 @@
 								adipisicing elit, sed do eiusmod tempor incididunt ut.</td>
 						</tr>
 					</tfoot>
+				<%for(Bill bill : listBill){ %>
 					<tbody>
 						<tr class="odd">
 							<td><input type="checkbox" name="" /></td>
-							<td>Box Software</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>45$</td>
-							<td>10/04/2011</td>
-							<td>web design</td>
-							<td>Alex</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
+							<%
+								User u = new User();
+								u = userDao.getUser((int)bill.getUserID());
+								BillDetailDao billDetailDao = new BillDetailDao();
+							%>
+							<td><%=u.getEmail()%></td>	
+							<td><%=bill.getTotal() %></td>
+							<td><%=bill.getPayment()%></td>
+							<td><%=bill.getAdress()%></td>
+							<td><%=bill.getDate()%></td>
+							<td><a href="${pageContext.request.contextPath}/ManagerBillServlet?command=delete&billid=<%=bill.getBillID()%>">Xóa</a>|
+							
 						</tr>
-						<tr class="even">
-							<td><input type="checkbox" name="" /></td>
-							<td>Trial Software</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>155$</td>
-							<td>12/04/2011</td>
-							<td>web design</td>
-							<td>Carrina</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
-						</tr>
-						<tr class="odd">
-							<td><input type="checkbox" name="" /></td>
-							<td>Hosting Pack</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>45$</td>
-							<td>10/04/2011</td>
-							<td>web design</td>
-							<td>Alex</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
-						</tr>
-						<tr class="even">
-							<td><input type="checkbox" name="" /></td>
-							<td>Duo Software</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>745$</td>
-							<td>10/04/2011</td>
-							<td>web design</td>
-							<td>Alex</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
-						</tr>
-						<tr class="odd">
-							<td><input type="checkbox" name="" /></td>
-							<td>Alavasti Software</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>45$</td>
-							<td>10/04/2011</td>
-							<td>web design</td>
-							<td>John</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
-						</tr>
-						<tr class="even">
-							<td><input type="checkbox" name="" /></td>
-							<td>Box Software</td>
-							<td>Lorem ipsum dolor sit amet consectetur</td>
-							<td>45$</td>
-							<td>10/04/2011</td>
-							<td>web design</td>
-							<td>Doe</td>
-							<td><a href="#"><img src="../images/edit.png" alt=""
-									title="" border="0" /></a></td>
-							<td><a href="#"><img src="../images/trash.gif" alt=""
-									title="" border="0" /></a></td>
-						</tr>
+				<%} %>
+				
 
 
 					</tbody>

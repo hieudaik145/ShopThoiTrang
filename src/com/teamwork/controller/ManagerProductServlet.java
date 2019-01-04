@@ -1,6 +1,7 @@
 package com.teamwork.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.teamwork.model.bean.Category;
 import com.teamwork.model.bean.Product;
+import com.teamwork.model.dao.CategoryDao;
 import com.teamwork.model.dao.ProductDao;
 
 
@@ -23,6 +25,7 @@ public class ManagerProductServlet extends HttpServlet {
 	        response.setCharacterEncoding("utf-8");
 	        String command = request.getParameter("command");
 	        String product_id = request.getParameter("product_id");
+	        
 
 	        String url = "";
 	        try {
@@ -44,38 +47,63 @@ public class ManagerProductServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String command = request.getParameter("command");
-        String tenDanhMuc = request.getParameter("tenDanhMuc");
+        String tenSP = request.getParameter("tenSP");
         String product_id = request.getParameter("product_id");
+        String category_name= request.getParameter("category_name");
+        String image = "images/"+request.getParameter("image");
+        String image1 ="images/"+ request.getParameter("image1");
+        String image2 = "images/"+request.getParameter("image2");
+        String price = request.getParameter("price");
+        String oldPrice = request.getParameter("oldPrice");
+        String description = request.getParameter("description");
+        String overview = request.getParameter("overview");
+        String additional = request.getParameter("additional");
+        String review = request.getParameter("review");
+        System.out.println(command);
+        System.out.println(image);
+       
+        CategoryDao categoryDao = new CategoryDao();
+        Category c = new Category();
+		try {
+			c = categoryDao.selectCategorybyName(category_name);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+        System.out.println(c.getCategory_ID());
         
-        String url = "", error = "";
-        if (tenDanhMuc.equals("")) {
-            error = "Vui lòng nhập tên danh mục!";
-            request.setAttribute("error", error);
-        }
-
+        String url = "";
+      
         try {
-            if (error.length() == 0) {
+    
                 switch (command) {
                     case "insert":
-                    	if(productDao.insertProduct(new Product(Long.parseLong(product_id), 
-                    			0, tenDanhMuc, error, error, error, 0, 0, error, error, error, error))) {
-                    		 url = "/admin/manager_product.jsp";
+                    	if(productDao.insertProduct(new Product(
+                    		(int) c.getCategory_ID(),tenSP, image, image1, image2, Double.parseDouble(price), Double.parseDouble(oldPrice), description, overview, additional, review))) {
+                    		url = "/admin/manager_product.jsp";
                     	}
-                       
+                    	else
+                    	{
+                    		request.setAttribute("inserterr", "Lỗi Thêm product");
+                    		url = "/admin/insert_product.jsp";
+                    	}
                         break;
                         
                     case "update":
-                    	productDao.updateProduct(new Product(Long.parseLong(request.getParameter("product_id")),
-                               0, tenDanhMuc, error, error, error, 0, 0, error, error, error, error));
-                        url = "/admin/manager_product.jsp";
+                    	if(productDao.updateProduct(new Product(Long.parseLong(product_id), (int) c.getCategory_ID(),tenSP, image, image1, image2, Double.parseDouble(price), Double.parseDouble(oldPrice), description, overview, additional, review))) {
+                    		url = "/admin/manager_product.jsp";
+                    	}
+                    	else
+                    	{
+                    		request.setAttribute("inserterr", "Lỗi Thêm product");
+                    		url = "/admin/update_product.jsp";
+                    	}
                         break;
                 }
-            } else {
-                url = "/admin/insert_product.jsp";
-            }
+            
         } catch (Exception e) {
+        	e.printStackTrace();
         }
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+        RequestDispatcher rd =	request.getRequestDispatcher(url);
         rd.forward(request, response);
 
 	}

@@ -71,7 +71,7 @@
 						<div class="mid-1">
 							<div class="women">
 								<div class="women-top">
-									<span>Women</span>
+									<span><%="-"+p.getSaleOf()+"%" %></span>
 									<h6>
 										<a href="single.jsp?productID=<%=p.getProductID()%>"><%=p.getProductName()%></a>
 									</h6>

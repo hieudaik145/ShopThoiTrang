@@ -8,6 +8,10 @@
 
 </head>
 <body>
+
+	<%if(request.getAttribute("checkoutsucess")!= null){ %>
+	<label style="color: red;"><%=(request.getAttribute("checkoutsucess")) %></label>
+	<%} %>
 	<jsp:include page="header.jsp"></jsp:include>
 	
 	<jsp:include page="banner.jsp"></jsp:include>

@@ -31,6 +31,24 @@ public class UserDao {
 	}
 	
 	
+	//code tuan
+	public User getUser(int userID) throws SQLException {
+		Connection conn = ConnectionProvider.getConnection();	
+		String sql ="select *from khachhang where id=?";
+		PreparedStatement  ps = conn.prepareCall(sql);
+		ps.setLong(1, userID);
+		ResultSet rs = ps.executeQuery();
+		User u = new User();
+		while (rs.next()) {
+			u.setUserID(rs.getInt("id"));
+			u.setUsername(rs.getString("username"));
+			u.setPassword(rs.getString("password"));
+			u.setEmail(rs.getString("email"));
+			u.setPhone(rs.getInt("phone"));
+			 return u;
+			 }
+	return null;
+}
 	
 
 }

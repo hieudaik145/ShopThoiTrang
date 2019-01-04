@@ -1,3 +1,4 @@
+<%@page import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.teamwork.model.bean.Category"%>
 <%@page import="com.teamwork.model.bean.Product"%>
@@ -7,15 +8,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manager Product</title>
+<title>Manager Product</title>
 
 </head>
 <body>
 
 	<%
-            if(request.getParameter("error")!=null){
-            }
-        %>
+		if (request.getParameter("error") != null) {
+		}
+	%>
+	<%
+		CategoryDao categoryDao = new CategoryDao();
+		ArrayList<Category> listCategory = categoryDao.getAllListCategory();
+	%>
 
 	<div id="panelwrap">
 
@@ -24,13 +29,13 @@
 		<div class="center_content">
 
 			<div id="right_wrap">
-			<div id="right_content">
-			
+				<div id="right_content">
+
 
 					<ul id="tabsmenu" class="tabsmenu">
-					<li class="active"><a href="#tab1">Insert Product</a></li>
+						<li class="active"><a href="#tab1">Insert Product</a></li>
 
-				</ul>
+					</ul>
 					<div id="tab1" class="tabcontent">
 						<h3>Add Product:</h3>
 
@@ -41,48 +46,64 @@
 						<%
 							}
 						%>
-						<form action="${pageContext.request.contextPath}/ManagerProductServlet?command=insert" method="post">
+						<form
+							action="${pageContext.request.contextPath}/ManagerProductServlet?command=insert"
+							method="post">
 
 
 							<div class="form">
 								<div class="form_row">
 									<label>Product Name:</label> <input type="text"
-										class="form_input" name="product_name" />
+										class="form_input" name="tenSP" />
 								</div>
+
 								<div class="form_row">
 									<label>Category Name:</label> <select class="form_select"
-										name="category_id">
-										<option>Select one</option>
+										name="category_name">
+										<%
+											for (Category c : listCategory) {
+										%>
+										<option><%=c.getCategory_Name()%></option>
+										<%
+											}
+										%>
 									</select>
 								</div>
 								<div class="form_row">
-									<label>Image:</label><input type="file" name="image" style="height: 50px; width: 300px">
+									<label>Image:</label><input type="file" name="image"
+										style="height: 50px; width: 300px">
 								</div>
 								<div class="form_row">
-									<label>Image 1:</label><input type="file" style="height: 50px; width: 300px">
+									<label>Image 1:</label><input type="file" name="image1"
+										style="height: 50px; width: 300px">
 								</div>
 								<div class="form_row">
-									<label>Image 2:</label><input type="file" style="height: 50px; width: 300px">
+									<label>Image 2:</label><input type="file" name="image2"
+										style="height: 50px; width: 300px">
 								</div>
 								<div class="form_row">
 									<label>Product Price:</label> <input type="text"
-										class="form_input" name="product_price" />
+										class="form_input" name="price" />
 								</div>
 								<div class="form_row">
 									<label>Product Old Price:</label> <input type="text"
-										class="form_input" name="product_old" />
+										class="form_input" name="oldPrice" />
 								</div>
 								<div class="form_row">
-									<label>Description:</label> <textarea class="form_textarea" name=""></textarea>
+									<label>Description:</label>
+									<textarea class="form_textarea" name="description"></textarea>
 								</div>
 								<div class="form_row">
-									<label>Overview:</label> <textarea class="form_textarea" name=""></textarea>
+									<label>Overview:</label>
+									<textarea class="form_textarea" name="overview"></textarea>
 								</div>
 								<div class="form_row">
-									<label>Additional:</label> <textarea class="form_textarea" name=""></textarea>
+									<label>Additional:</label>
+									<textarea class="form_textarea" name="additional"></textarea>
 								</div>
 								<div class="form_row">
-									<label>Review:</label> <textarea class="form_textarea" name=""></textarea>
+									<label>Review:</label>
+									<textarea class="form_textarea" name="review"></textarea>
 								</div>
 								<div class="form_row">
 									<input type="hidden" name="command" value="insert"> <input
@@ -93,12 +114,12 @@
 						</form>
 
 					</div>
-					
-				
+
+
 				</div>
-				
-				</div>
-			
+
+			</div>
+
 			<jsp:include page="menu.jsp"></jsp:include>
 
 		</div>
@@ -107,6 +128,6 @@
 
 
 	</div>
-	
+
 </body>
 </html>

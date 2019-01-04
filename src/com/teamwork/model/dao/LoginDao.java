@@ -28,6 +28,7 @@ public class LoginDao {
 			return false;
 		
 		}
+		
 		static public void getDataKH(User u) throws SQLException
 		{
 			Connection con = ConnectionProvider.getConnection();
@@ -42,6 +43,22 @@ public class LoginDao {
 				u.setEmail(rs.getString("email"));
 				u.setPhone(rs.getInt("phone"));
 			}
+		}
+		
+		//check login quan tri vien admin
+		public static boolean CheckLoginAdmin(String name, String password) {
+			try {
+				Connection con = ConnectionProvider.getConnection();
+				PreparedStatement ps = con.prepareStatement("select * from admin where name=? and password=? ");
+				ps.setString(1, name);
+				ps.setString(2, password);
+				ResultSet rs = ps.executeQuery();
+				return rs.next();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return false;
 		}
 	
 }

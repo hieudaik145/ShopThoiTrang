@@ -16,7 +16,10 @@
 			</div>
 
 			<div class="header_right">
-				Welcome Admin, <a href="#" class="settings">Settings</a> <a href="#" class="logout">Logout</a>
+			<%if(session.getAttribute("nameadmin")!=null){ %>
+				Welcome: <%=session.getAttribute("nameadmin") %>
+				<%} %>
+				<a href="#" class="settings">Settings</a> <a href="${pageContext.request.contextPath}/UserServlet?command=logoutadmin" class="logout">Logout</a>
 			</div>
 
 			<div class="menu">

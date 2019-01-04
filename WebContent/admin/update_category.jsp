@@ -7,7 +7,6 @@
 <meta charset="ISO-8859-1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Update Catoegory</title>
-<c:set var="root" value="${pageContext.request.contextPath}"/>
 
 </head>
 <body>
@@ -55,11 +54,11 @@
 						<div class="form_row">
 									<label>Sex:</label> <select class="form_select"
 										name="sex">
-										<%if(c.getSex().equals("nam")){ %>
+										<%if(c.getSex().equals("Nam")){ %>
 										<option>Nam</option>
 										<option>Nu</option>
 										<%} %>
-										<%if(c.getSex().equals("nu")){ %>
+										<%if(c.getSex().equals("Nu")){ %>
 										<option>Nu</option>
 										<option>Nam</option>
 										<%} %>
@@ -67,7 +66,6 @@
 									</select>
 						</div>
 						<%} %>
-
 						<div class="form_row">
                             <input type="hidden" name="command" value="update">
                                 <input type="hidden" name="category_id" value="<%=request.getParameter("category_id")%>">

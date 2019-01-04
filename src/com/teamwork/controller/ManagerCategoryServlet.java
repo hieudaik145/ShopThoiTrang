@@ -58,7 +58,9 @@ public class ManagerCategoryServlet extends HttpServlet {
             if (error.length() == 0) {
                 switch (command) {
                     case "insert":
-                    	Category c = new Category(Long.parseLong(category_id),tenDanhMuc, sex);
+                    	Category c = new Category();
+                    	c.setCategory_Name(tenDanhMuc);
+                    	c.setSex(sex);
                     	if(categoryDao.insertCategory(c)) {
                     		 url = "/admin/manager_category.jsp";
                     	}

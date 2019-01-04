@@ -7,18 +7,12 @@
 </head>
 <body>
 	<div id="panelwrap">
-
 		<jsp:include page="header.jsp"></jsp:include>
-
 		<div class="center_content">
-
 			<jsp:include page="content.jsp"></jsp:include>
 			<jsp:include page="menu.jsp"></jsp:include>
-
 		</div>
-
 		<jsp:include page="footer.jsp"></jsp:include>
-
 
 	</div>
 

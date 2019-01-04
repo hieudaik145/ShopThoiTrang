@@ -27,16 +27,21 @@ public class UserServlet extends HttpServlet {
 	LoginDao logindao = new LoginDao();
 	RegisterDao registerDao = new RegisterDao();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		  request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.setContentType("text/html; charset=UTF-8");
 		doPost(request, response);
 	}
 
    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.setContentType("text/html; charset=UTF-8");
 		HttpSession session = request.getSession();
 		
 		String command = request.getParameter("command");
-	
+		System.out.println(command);
 		switch(command) {
 		case "login":
 			String email  = request.getParameter("email");
@@ -79,6 +84,9 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case "register":
+			request.setCharacterEncoding("UTF-8");
+		    response.setCharacterEncoding("UTF-8");
+		    response.setContentType("text/html; charset=UTF-8");
 			String username= request.getParameter("username");
 			String phone = request.getParameter("phone");
 			String password = request.getParameter("password");
@@ -105,10 +113,31 @@ public class UserServlet extends HttpServlet {
 			}
 			break;
 		case "logout":
-			session.invalidate();
-			response.sendRedirect("login.jsp");
 			
+			session.removeAttribute("user");
+			response.sendRedirect("login.jsp");
+			break;
+		case "loginadmin":
+			
+			String name = request.getParameter("name");
+			String passwordadmin = request.getParameter("password");
+			if(logindao.CheckLoginAdmin(name, passwordadmin)) {
+				session.setAttribute("nameadmin", name);
+				RequestDispatcher rd = request.getRequestDispatcher("/admin/index.jsp");
+				rd.forward(request, response);
+			}
+			else
+			{	request.setAttribute("loginadminerr", "Sai Tên Đăng Nhập Và Mật Khẩu");
+				RequestDispatcher rd = request.getRequestDispatcher("/admin/login.jsp");
+				rd.forward(request, response);
+			}
+			break;
+		case "logoutadmin":
+			session.removeAttribute("nameadmin");
+			response.sendRedirect("index.jsp");
+			break;
 		}
+		
 		
 	}
 

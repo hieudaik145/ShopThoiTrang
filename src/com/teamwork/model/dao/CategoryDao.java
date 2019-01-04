@@ -63,7 +63,20 @@ public class CategoryDao {
 		
 		return list;
 	}
-	
+	public Category selectCategorybyName(String name) throws SQLException {
+		Connection conn = ConnectionProvider.getConnection();
+		PreparedStatement ps = conn.prepareStatement("select * from category where category_name = ?");
+		ps.setString(1, name);
+		ResultSet rs = ps.executeQuery();
+		Category c = new Category();
+		while(rs.next())
+		{
+			c.setCategory_ID(rs.getInt("category_id"));
+			c.setCategory_Name(rs.getString("category_name"));
+			c.setSex(rs.getString("sex"));
+		}
+		return c;
+	}
 	public Category selectCategory(long category_id) throws SQLException
 	{
 		Connection conn = ConnectionProvider.getConnection();
@@ -85,11 +98,10 @@ public class CategoryDao {
 		public boolean insertCategory(Category c) throws SQLException {
 		    try {
 		         Connection conn = ConnectionProvider.getConnection();
-		         String sql = "INSERT INTO category VALUE(?,?,?)";
+		         String sql = "INSERT INTO category(category_name,sex) VALUE(?,?)";
 		         PreparedStatement ps = conn.prepareCall(sql);
-		         ps.setLong(1, c.getCategory_ID());
-		         ps.setString(2, c.getCategory_Name());
-		         ps.setString(3, c.getSex());
+		         ps.setString(1, c.getCategory_Name());
+		         ps.setString(2, c.getSex());
 		         int temp = ps.executeUpdate();
 		         return temp == 1;
 		    } catch (Exception e) {

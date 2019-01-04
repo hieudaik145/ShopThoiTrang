@@ -14,23 +14,26 @@
 	<div class="loginheader">
     <div class="logintitle"><a href="#">Panelo Admin</a></div>
     </div>
-
-     
+	<%if(request.getAttribute("loginadminerr")!=null){ %>
+	<label style="color: red;"><%=request.getAttribute("loginadminerr") %></label>
+	<%} %>
+     <form action="${pageContext.request.contextPath}/UserServlet?command=loginadmin" method="post">
     <div class="loginform">
         
         <div class="loginform_row">
         <label>Username:</label>
-        <input type="text" class="loginform_input" name="" />
+        <input type="text" class="loginform_input" name="name" />
         </div>
         <div class="loginform_row">
         <label>Password:</label>
-        <input type="text" class="loginform_input" name="" />
+        <input type="text" class="loginform_input" name="password" />
         </div>
         <div class="loginform_row">
         <input type="submit" class="loginform_submit" value="Login" />
         </div> 
         <div class="clear"></div>
     </div>
+    </form>
  
 
 </div>
