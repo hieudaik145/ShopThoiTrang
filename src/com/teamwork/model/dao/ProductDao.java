@@ -128,7 +128,7 @@ public class ProductDao {
 	
 	public ArrayList<Product> getListProductSearch(String chuoi) throws SQLException{
 		Connection conn = ConnectionProvider.getConnection();
-		String sql = "select * from product where product_name like '"+chuoi+"' ";
+		String sql = "select * from product where product_name like '%"+chuoi+"%' ";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		ArrayList<Product> list = new ArrayList<>();
@@ -246,7 +246,7 @@ public class ProductDao {
 	//tu viet
 	public static void main(String[] args) throws SQLException {
 		ProductDao dao = new ProductDao();
-		ArrayList<Product> list = dao.getListProductSearch("Áo Thun Nam In Hình Naruto");
+		ArrayList<Product> list = dao.getListProductSearch("Ã�o Thun Nam In HÃ¬nh Naruto");
 		System.out.println(list.size());
 		for(int i= 0; i < list.size() ; i++)
 		{

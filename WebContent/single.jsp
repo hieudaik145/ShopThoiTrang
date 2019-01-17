@@ -1,4 +1,4 @@
-<%@page import="sun.java2d.Spans"%>
+<%@page import="sun.java2d.*"%>
 <%@page import="com.teamwork.model.bean.Category"%>
 <%@page import="com.teamwork.model.dao.CategoryDao"%>
 <%@page import="com.teamwork.model.bean.User"%>
