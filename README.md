@@ -1,4 +1,5 @@
 ﻿# ShopThoiTrang
+JSP-S
 Trang web bán hàng quần áo.
 Sử dụng công nghệ jsp - servlet theo mô hình MVC . template của w3layout
 Có đầy đủ các chức năng của một trang web bán hàng.
